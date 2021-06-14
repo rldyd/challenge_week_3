@@ -6,8 +6,6 @@ var passwordUpper = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 var passwordNumber = ["0123456789"];
 var passwordSpecial = ["@!#$^%&*"];
 
-var cons = [];
-
 var reset = function()
 {
   passwordLower = ["abcdefghijklmnopqrstuvwxyz"];
@@ -30,21 +28,21 @@ var generatePassword = function()
   var number = confirm ('Do you want to put Number in your password?');
   var symbol = confirm ('Do you want to put Special symbols in your password?');
   
-  if (lowercase)
+  if (!lowercase)
   {
-     cons = cons + passwordLower;
+     passwordLower = [];
   }
-  if (uppercase)
+  if (!uppercase)
   {
-    cons = cons + passwordUpper;
+     passwordUpper = [];
   }
-  if (number)
+  if (!number)
   {
-    cons = cons + passwordNumber;
+     passwordNumber = [];
   }
-  if (symbol)
+  if (!symbol)
   {
-    cons = cons + passwordSpecial;
+     passwordSpecial = [];
   }
   if (!lowercase && !uppercase && !number && !symbol)
   {
@@ -52,12 +50,13 @@ var generatePassword = function()
     reset();
     writePassword();
   }
-
+  
+  var combine = passwordNumber + passwordSpecial + passwordUpper + passwordLower;
   var newPassword = "";
   //for loop
   for (var i=0; i < char; i++)
   {
-    var newNum = cons[Math.floor(Math.random() * cons.length)];
+    var newNum = combine[Math.floor(Math.random() * combine.length)];
     newPassword += newNum;
   }
   return newPassword;
